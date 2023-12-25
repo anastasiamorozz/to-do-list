@@ -1,11 +1,25 @@
 
-.logo{
+.header{
     padding: 15px;
-    gap: 5px;
     color: #ffffff;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    // justify-content: center;
+    button{
+        background: none;
+        border: none;
+        font-size: 25px;
+        cursor: pointer;
+        color: #ffffff;
+    }
+}
+
+.logo{
     align-items: center;
     justify-content: center;
+    gap: 5px;
+    display: flex;
     img{
         height: 50px;
     }

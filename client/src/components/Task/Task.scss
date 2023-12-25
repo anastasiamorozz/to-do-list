@@ -1,0 +1,20 @@
+.task{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: solid 2px #FFCA0F;
+
+    &:last-child {
+        border-bottom: none;
+    }
+    
+    .name{
+        display: flex;
+        gap: 7px;
+    }
+
+    p{
+        font-size: 14px;
+        color: grey;
+        gap: 5px;
+    }
+}

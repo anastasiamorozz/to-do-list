@@ -1,0 +1,25 @@
+import React, { useState, useEffect } from "react";
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import reportWebVitals from './reportWebVitals';
+import AppRouter from "./components/AppRouter";
+import { BrowserRouter } from "react-router-dom";
+import { UserRoleContext } from "./context/UserContext";
+
+function App() {
+    const [userRole, setUserRole] = useState(null);
+    useEffect(() => {
+      if (localStorage.getItem("userRole")) {
+        setUserRole(localStorage.getItem("userRole"));
+      }
+    }, []);
+    return (
+      <UserRoleContext.Provider value={{ userRole, setUserRole }}>
+        <BrowserRouter>
+          <AppRouter />
+        </BrowserRouter>
+      </UserRoleContext.Provider>
+    );
+}
+
+  export default App;
