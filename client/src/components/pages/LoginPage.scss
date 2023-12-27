@@ -5,16 +5,17 @@
     align-items: center;
     justify-content: center;
     --c: goldenrod;
-    border: 0.3em solid var(--c);
+    // border: 0.3em solid var(--c);
     border-radius: 0.5em;
-    width: 15%;
-    padding: 10px;
-    padding-top: 30px;
-    // height: 100vh; /* Забезпечте 100% висоту відображення, щоб центрувати по вертикалі */
+    width: 50%; 
+    max-width: 400px;
+    padding: 20px;
+    box-sizing: border-box; 
+    margin: 0 auto;
   }
   
   h1 {
-    margin-bottom: 20px; /* Додайте простір нижче заголовка для кращого вигляду */
+    margin-bottom: 20px; 
   }
   
   form {
@@ -27,6 +28,11 @@
     list-style-type: none;
     margin: 0;
     padding: 0;
+  }
+
+  p{
+    color: grey;
+    text-decoration: underline;
   }
   
   input{

@@ -1,0 +1,83 @@
+.startPage{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    .banner{
+        display: flex;
+        justify-content: space-between;
+        // border: solid 0.5px;
+        border-radius: 0.9em;
+        box-shadow:  8px #ffff;
+        width: 80%;
+        margin-top: 25px;
+        img{
+            height: 500px;
+        }
+        .bannerLeft{
+            padding: 50px;
+            h1{
+                color: white;
+                font-size: 70px;
+            }
+            p{text-decoration: none;}
+        }
+        .btn-5 {
+            width: 130px;
+            height: 40px;
+            line-height: 42px;
+            padding: 0;
+            border: none;
+            border-radius: 0.9em;
+            background: goldenrod;
+            margin-top: 20px;
+            background: linear-gradient(0deg, goldenrod 0%, goldenrod 100%);
+          }
+          .btn-5:hover {
+            color: goldenrod;
+            background: transparent;
+             box-shadow:none;
+          }
+          .btn-5:before,
+          .btn-5:after{
+            content:'';
+            position:absolute;
+            top:0;
+            right:0;
+            height:2px;
+            width:0;
+            background: goldenrod;
+            box-shadow:
+             -1px -1px 5px 0px #fff,
+             7px 7px 20px 0px #0003,
+             4px 4px 5px 0px #0002;
+            transition:400ms ease all;
+          }
+          .btn-5:after{
+            right:inherit;
+            top:inherit;
+            left:0;
+            bottom:0;
+          }
+          .btn-5:hover:before,
+          .btn-5:hover:after{
+            width:100%;
+            transition:800ms ease all;
+          }
+    }
+
+    .stack{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: gray;
+      margin-top: 40px;
+      ul{
+        display: flex;
+        list-style: none;
+        font-size: 70px;
+        gap: 80px;
+      }
+    }
+}

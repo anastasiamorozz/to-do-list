@@ -17,10 +17,13 @@ function Header(){
         <header>
             <div className="header">
                 <div></div>
-                <div className="logo">
-                    <img src='/IconYellow.png'></img>
-                    <h1>ToDo List</h1>
-                </div>
+                    <button onClick={()=>{navigate("/")}}>
+                        <div className="logo">
+                            <img src='/IconYellow.png'></img>
+                            <h1>ToDo List</h1>
+                        </div>
+                        
+                    </button>
                 <div>
                     <button onClick={()=>{navigate("/auth/login")}}> <FontAwesomeIcon icon={faArrowRightToBracket} /> </button>
                 </div>
