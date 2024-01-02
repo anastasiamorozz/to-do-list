@@ -2,21 +2,21 @@ import React, { useState } from 'react';
 import '../pages/LoginPage.scss';
 import Header from '../Header/Header';
 
-
-const LoginPage = () =>{
+const RegPage = () =>{
     return(
         <div>
             <Header></Header>
             <div className="loginPage">
                 <form>
-                    <h1>Log in</h1>
+                    <h1>Sign up</h1>
                     <input type="text" id="username" placeholder='Username'/><br/>
+                    <input type="text" id="email" placeholder='Email'/><br/>
                     <input type="text" id="password" placeholder='Password'/><br/>
-                    <a href='/auth/reg'>Haven`t registed yet?</a>
+                    <a href='/auth/login'>Already have an account?</a>
                     <nav>
                         <ul>
                             <li>
-                            sign in
+                            register
                             <span></span><span></span><span></span><span></span>
                             </li>
                         </ul>
@@ -29,4 +29,4 @@ const LoginPage = () =>{
     
 }
 
-export default LoginPage;
+export default RegPage;

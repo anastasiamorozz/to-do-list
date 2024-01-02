@@ -1,4 +1,20 @@
+.topElements{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 70px;
+    margin-right: 70px;
+    margin-bottom: 10px;
 
+    button{
+        background-color: black;
+        color: white;
+        padding: 9px;
+        border: solid 3px #FFCA0F;
+        border-radius: 20px;
+        height: 35px;
+    }
+}
 
 .container{
     padding: 20px;
@@ -12,7 +28,7 @@
 .date {
     background-color: black; 
     color: white; 
-    height: 30px;
+    height: 20px;
     width: 90px;
     margin: 10px;
     border: dotted #FFCA0F;
@@ -23,6 +39,29 @@
 
 .dateContainer{
     display: flex;
-    margin-left: 70px;
-    margin-right: 70px;
+
 }
+
+.ReactModal__Overlay {
+    opacity: 0;
+    transition: opacity 300ms ease-in-out;
+  }
+  
+  .ReactModal__Overlay--after-open {
+    opacity: 1;
+  }
+  
+  .ReactModal__Overlay--before-close {
+    opacity: 0;
+  }
+  
+  .ReactModal__Content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: black;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }

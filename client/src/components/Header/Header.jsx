@@ -25,7 +25,7 @@ function Header(){
                         
                     </button>
                 <div>
-                    <button onClick={()=>{navigate("/auth/login")}}> <FontAwesomeIcon icon={faArrowRightToBracket} /> </button>
+                    <button onClick={()=>{navigate("/main")}}> <FontAwesomeIcon icon={faArrowRightToBracket} /> </button>
                 </div>
             </div>
 
