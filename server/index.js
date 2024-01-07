@@ -1,21 +1,21 @@
-const express = require("express")
-const app = express()
-require('dotenv').config()
+const express = require("express");
+const app = express();
+const cors = require('cors');
+require('dotenv').config();
 
-const userRouter = require('./routes/user.routes')
+app.use(cors());
 
-const bodyParser = require('body-parser')
+const userRouter = require('./routes/user.routes');
 
 app.get('/', (req, res) => {
-    res.send("Server is runing");
-})
+    res.send("Server is running");
+});
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json()); 
 
-// app.use(express.json())
-app.use('/user', userRouter)
+app.use('/user', userRouter);
 
 const port = process.env.PORT || 8080;
-app.listen(port, ()=>{
-    console.log('server running on port', port)});
+app.listen(port, () => {
+    console.log('server running on port', port);
+});
