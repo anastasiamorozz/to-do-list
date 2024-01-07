@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import '../pages/LoginPage.scss';
-import Header from '../Header/Header';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+import { UserRoleContext } from '../../context/UserContext';
 
 const LoginPage = () =>{
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
+    const { setUserRole } = useContext(UserRoleContext);
 
     const handleLogin = async () => {
         try {
@@ -14,17 +17,18 @@ const LoginPage = () =>{
             password,
           });
     
-          console.log(response.data);
+          setUserRole('user');
+          navigate("/main");
           
         } catch (error) {
           console.error('Error during registration:', error);
+          alert("Incorrect password or username")
         }
       };
 
 
     return(
         <div>
-            <Header></Header>
             <div className="loginPage">
                 <form>
                     <h1>Log in</h1>

@@ -9,7 +9,7 @@ import { faReact, faNode, faJs, faSass, faNpm, faGithub } from '@fortawesome/fre
 const StartPage = () => {
     return(
         <div>
-            <Header />
+            
             <div className="startPage">
                 <div className='banner'>
                     <div className="bannerLeft">

@@ -31,17 +31,38 @@ class UserController {
     async loginUser(req, res) {
         try {
           const { username, password } = req.body;
+
+          const saltRounds = 10; 
+        const password2 = '12345678';
+        var hash_pass=null;
       
           const user = await db.query('SELECT * FROM users WHERE username = $1', [username]);
       
           if (user.rows.length === 0) {
-            return res.status(401).json({ error: 'Invalid username or password' });
+            return res.status(401).json({ error: 'Invalid username' });
           }
       
+        //   bcrypt.hash(password, saltRounds, (error, hash) => {
+        //     if (error) {
+        //         console.log('Error: ', error);
+        //     } else {
+        //         console.log(`Your encrypted password is: ${hash}`)
+        //         // here you can send hashed passwords to the database
+        //         hash_pass = hash;
+        //         bcrypt.compare(user.rows[0].password, hash, (error, result) => {
+        //           if (error) {
+        //               console.error('Error: ', error);
+        //           } else {
+        //               console.log('Is the password correct: ', result); // true or false
+        //           }
+        //         });
+        //     }
+        // });
+        
           const isValidPassword = await bcrypt.compare(password, user.rows[0].password);
       
           if (!isValidPassword) {
-            return res.status(401).json({ error: 'Invalid username or password' });
+            return res.status(401).json({ error: 'Invalid password' });
           }
       
           const userId = user.rows[0].id;

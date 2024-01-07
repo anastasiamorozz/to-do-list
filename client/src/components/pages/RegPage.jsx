@@ -3,11 +3,13 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import '../pages/LoginPage.scss';
 import Header from '../Header/Header';
+import { useNavigate } from 'react-router-dom';
 
 const RegPage = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleRegister = async () => {
     try {
@@ -17,7 +19,7 @@ const RegPage = () => {
         password,
       });
 
-      console.log(response.data);
+      navigate("/main");
       
     } catch (error) {
       console.error('Error during registration:', error);
@@ -26,7 +28,6 @@ const RegPage = () => {
 
   return (
     <div>
-      <Header></Header>
       <div className="loginPage">
         <form>
           <h1>Sign up</h1>

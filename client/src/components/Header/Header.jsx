@@ -24,9 +24,10 @@ function Header(){
                         </div>
                         
                     </button>
-                <div>
-                    <button onClick={()=>{navigate("/auth/reg")}}> <FontAwesomeIcon icon={faArrowRightToBracket} /> </button>
-                </div>
+
+                    {userRole!='user'&& (<button onClick={()=>{navigate("/auth/reg")}}> <FontAwesomeIcon icon={faArrowRightToBracket} /> </button>)}
+                    {userRole == 'user' && (<a>My profile</a>)}
+                    
             </div>
 
         </header>

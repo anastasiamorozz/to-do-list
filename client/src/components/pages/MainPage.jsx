@@ -36,7 +36,6 @@ const MainPage = () => {
     return(
         
         <div className='mainPage'>
-            <Header></Header>
             <div className="topElements">
                 <div className="dateContainer">
                     <h3>Day</h3>
