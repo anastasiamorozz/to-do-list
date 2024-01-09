@@ -1,7 +1,6 @@
 
 import React from "react";
 import './Header.scss';
-import { useState } from "react";
 import { useContext } from "react";
 import { UserRoleContext } from "../../context/UserContext";
 import { useNavigate } from "react-router-dom";
@@ -10,9 +9,8 @@ import { faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons';
 
 function Header(){
     const navigate = useNavigate();
-    const [visible, setVisible] = useState(false);
-    const [isAccountExist, setIsAccountExist] = useState(true);
     const { userRole } = useContext(UserRoleContext);
+    const username = localStorage.getItem("username");
     return (
         <header>
             <div className="header">
@@ -26,7 +24,7 @@ function Header(){
                     </button>
 
                     {userRole!='user'&& (<button onClick={()=>{navigate("/auth/reg")}}> <FontAwesomeIcon icon={faArrowRightToBracket} /> </button>)}
-                    {userRole == 'user' && (<a>My profile</a>)}
+                    {userRole == 'user' && (<a onClick={()=>{navigate("/profile")}}>{username}`s profile</a>)}
                     
             </div>
 

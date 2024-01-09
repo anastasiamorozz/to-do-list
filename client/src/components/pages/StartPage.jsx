@@ -50,7 +50,6 @@ const StartPage = () => {
                 </div>
 
             </div>
-            <Footer></Footer>
         </div>
     );
 }

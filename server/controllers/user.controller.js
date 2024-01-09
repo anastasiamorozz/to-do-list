@@ -68,7 +68,7 @@ class UserController {
           const userId = user.rows[0].id;
           const token = createSecretToken(userId);
       
-          res.status(200).json({ token });
+          res.status(200).json({ token, userId, username });
         } catch (error) {
           console.error('Error during login:', error);
           res.status(500).json({ error: 'Internal Server Error' });
@@ -94,6 +94,31 @@ class UserController {
     }
 
     async deleteUser(req, res){}
+
+    async updateUsername(req, res){
+      const { username } = req.body;
+      const userId = req.params.id;
+    
+      try {
+        const checkUsername = await db.query('SELECT * FROM Users WHERE username = $1 AND id != $2', [username, userId]);
+    
+        if (checkUsername.rows.length > 0) {
+          return res.status(409).json({ error: 'Username is already taken' });
+        }
+    
+        const updateResult = await db.query('UPDATE Users SET username = $1 WHERE id = $2 RETURNING *', [username, userId]);
+    
+        if (updateResult.rows.length === 0) {
+          return res.status(404).json({ error: 'User not found' });
+        }
+    
+        res.status(200).json({ success: true, message: 'Username updated successfully' });
+      } catch (error) {
+        console.error('Error during username update:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+      }
+    
+    }
 }
 
 module.exports = new UserController();

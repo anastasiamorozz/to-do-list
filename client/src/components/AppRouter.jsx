@@ -1,6 +1,5 @@
 import React from "react";
-import { userRoutes } from "../router/routes";
-import { publicRoutes } from "../router/routes";
+import { publicRoutes, userRoutes } from "../router/routes";
 import { Route, Routes } from "react-router-dom";
 import { useContext } from "react";
 import { UserRoleContext } from "../context/UserContext";

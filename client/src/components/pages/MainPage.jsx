@@ -62,8 +62,6 @@ const MainPage = () => {
             <div className="container">
                 <List tasks={tasks}></List>
             </div>
-
-            <Footer></Footer>
         </div>
     );
 }

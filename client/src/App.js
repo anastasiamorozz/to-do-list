@@ -6,6 +6,7 @@ import AppRouter from "./components/AppRouter";
 import { BrowserRouter } from "react-router-dom";
 import { UserRoleContext } from "./context/UserContext";
 import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
 
 function App() {
     const [userRole, setUserRole] = useState(null);
@@ -19,7 +20,7 @@ function App() {
         <BrowserRouter>
         <Header></Header>
           <AppRouter />
-          
+        <Footer></Footer>
         </BrowserRouter>
       </UserRoleContext.Provider>
     );

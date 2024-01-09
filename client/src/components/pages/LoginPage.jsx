@@ -17,6 +17,14 @@ const LoginPage = () =>{
             password,
           });
     
+          axios.defaults.headers.common[
+            "Authorization"
+          ] = `Bearer ${response.data.token}`;
+
+          console.log(response.data.token, response.data.userId, response.data.username);
+          localStorage.setItem('accessToken', response.data.token);
+          localStorage.setItem("userId", response.data.userId);
+          localStorage.setItem("username", response.data.username);
           setUserRole('user');
           navigate("/main");
           

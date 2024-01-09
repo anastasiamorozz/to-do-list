@@ -1,0 +1,28 @@
+.profile{
+    padding: 20px 70px;
+    margin: 10px 50px;
+    border: dotted 3px goldenrod;
+    border-radius: 20px;
+    input{
+        width: 100%;
+        margin-bottom: 15px;
+    }
+    hr{
+        height: 1px;
+        background: goldenrod;
+        border: none;
+        margin-top: 30px;
+        margin-left: 12px;
+    }
+    button{
+        display: block;
+        width: 100%;
+        margin-left: 12px;
+        color: goldenrod;
+        border: solid 2px goldenrod;
+        border-radius: 10px;
+        background-color: black;
+        padding: 10px;
+        font-weight: bold;
+    }
+}
