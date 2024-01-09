@@ -6,11 +6,8 @@ import '../pages/ProfilePage.scss';
 const ProfilePage = () =>{
     const navigate = useNavigate();
     const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
-    const [currentPassword, seCurrentPassword] = useState("");
+    const [currentPassword, setCurrentPassword] = useState("");
     const [password, setPassword] = useState("");
-
-    const token = localStorage.getItem('accessToken');
 
     const updateUsername = async () => {
       try {
@@ -27,9 +24,33 @@ const ProfilePage = () =>{
           }
         );
     
+        localStorage.setItem("username", response.data.username);
+        alert(response.data.message);
         navigate("/main");
       } catch (error) {
         console.error('Error during username update:', error);
+      }
+    };
+
+    const updatePassword = async () => {
+      try {
+        const token = localStorage.getItem('accessToken');
+        const userId = localStorage.getItem('userId');
+    
+        const response = await axios.post(
+          `http://localhost:3002/user/updatePassword/${userId}`,
+          { currentPassword, password },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        alert(response.data.message);
+        navigate("/main");
+      } catch (error) {
+        console.error('Error during password update:', error);
       }
     };
 
@@ -45,23 +66,13 @@ const ProfilePage = () =>{
             /><br></br>
             <button onClick={()=>updateUsername()} >Update Username</button>
 
-            <h1>Email</h1>
-            <input
-                        type="email"
-                        id="email"
-                        placeholder="New email..."
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-            /><br></br>
-            <button onClick={()=>updateUsername()} >Update Email</button>
-
             <h1>Password</h1>
             <input
                         type="password"
                         id="currentPassword"
                         placeholder="Current password..."
                         value={currentPassword}
-                        onChange={(e) => seCurrentPassword(e.target.value)}
+                        onChange={(e) => setCurrentPassword(e.target.value)}
             /><br></br>
                         <input
                         type="password"
@@ -70,7 +81,7 @@ const ProfilePage = () =>{
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
             /><br></br>
-            <button onClick={()=>updateUsername()} >Update Password</button>
+            <button onClick={()=>updatePassword()} >Update Password</button>
         </div>
     )
 }

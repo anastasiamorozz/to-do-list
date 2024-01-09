@@ -10,6 +10,7 @@ router.get('/getOneUser/:id', userController.getOneUser);
 router.put('/updeteUser', userController.updeteUser);
 router.delete('/deleteUser/:id', userController.deleteUser);
 router.post('/updateUsername/:id', userController.updateUsername);
+router.post('/updatePassword/:id', userController.updatePassword);
 
 
 

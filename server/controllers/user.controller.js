@@ -31,10 +31,6 @@ class UserController {
     async loginUser(req, res) {
         try {
           const { username, password } = req.body;
-
-          const saltRounds = 10; 
-        const password2 = '12345678';
-        var hash_pass=null;
       
           const user = await db.query('SELECT * FROM users WHERE username = $1', [username]);
       
@@ -112,9 +108,42 @@ class UserController {
           return res.status(404).json({ error: 'User not found' });
         }
     
-        res.status(200).json({ success: true, message: 'Username updated successfully' });
+        res.status(200).json({ success: true, message: 'Username updated successfully', username});
       } catch (error) {
         console.error('Error during username update:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+      }
+    
+    }
+
+    async updatePassword(req, res){
+      const { currentPassword, password } = req.body;
+      const userId = req.params.id;
+    
+      try {
+        const getOldPassword = await db.query('SELECT password FROM Users WHERE id = $1', [userId]);
+
+        const comparePasswords = await bcrypt.compare(currentPassword, getOldPassword.rows[0].password);
+
+
+
+        // const checkPasswords = await db.query('SELECT * FROM Users WHERE id = $1 AND password != $2', [userId, currentPassword]);
+    
+        if (!comparePasswords) {
+          return res.status(409).json({ error: 'Curent password is incorrect' });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+    
+        const updateResult = await db.query('UPDATE Users SET password = $1 WHERE id = $2 RETURNING *', [hashedPassword, userId]);
+    
+        if (updateResult.rows.length === 0) {
+          return res.status(404).json({ error: 'User not found' });
+        }
+    
+        res.status(200).json({ success: true, message: 'Password updated successfully'});
+      } catch (error) {
+        console.error('Error during password update:', error);
         res.status(500).json({ error: 'Internal Server Error' });
       }
     
