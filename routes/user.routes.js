@@ -7,6 +7,8 @@ const userController = require('../controllers/user.controller');
  * /user/reg:
  *   post:
  *     summary: Create a new user
+ *     tags: 
+ *      - User
  *     description: Create a new user with a unique username and email
  *     requestBody:
  *       required: true
@@ -40,6 +42,8 @@ router.post('/reg', userController.createUser);
  * /user/login:
  *   post:
  *     summary: Login user
+ *     tags: 
+ *      - User
  *     description: Login user with a valid username and password
  *     requestBody:
  *       required: true
@@ -79,6 +83,8 @@ router.post('/login', userController.loginUser);
  * /user/getUsers:
  *   get:
  *     summary: Returns a list of users
+ *     tags: 
+ *      - User
  *     description: Get all users from the database
  *     responses:
  *       200:
@@ -96,6 +102,8 @@ router.get('/getUsers', userController.getUsers);
  * /user/getOneUser/{id}:
  *   get:
  *     summary: Get user by ID
+ *     tags: 
+ *      - User
  *     description: Get user details by their ID
  *     parameters:
  *       - in: path
@@ -123,6 +131,8 @@ router.get('/getOneUser/:id', userController.getOneUser);
  * /user/updateUsername/{id}:
  *   post:
  *     summary: Update username for a specific user
+ *     tags: 
+ *      - User
  *     description: Update the username for a user with the given ID
  *     parameters:
  *       - in: path
@@ -169,6 +179,8 @@ router.post('/updateUsername/:id', userController.updateUsername);
  * /user/updatePassword/{id}:
  *   post:
  *     summary: Update password for a specific user
+ *     tags: 
+ *      - User
  *     description: Update the password for a user with the given ID
  *     parameters:
  *       - in: path
