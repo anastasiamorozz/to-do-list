@@ -85,12 +85,6 @@ class UserController {
         return res.status(200).send(user.rows);
     }
 
-    async updeteUser(req, res){
-        const userId = req.params.id;
-    }
-
-    async deleteUser(req, res){}
-
     async updateUsername(req, res){
       const { username } = req.body;
       const userId = req.params.id;
