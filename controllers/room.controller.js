@@ -67,14 +67,22 @@ class RoomContoller{
       const userId = req.params.id;
       try {
           const roomsCreator = await db.query(`SELECT * FROM Rooms WHERE creator_id = $1`, [userId]);
-          const roomsAdded = await db.query(`SELECT * FROM UsersInRoom WHERE user_id = $1`, [userId] );
-
-          res.status(201).json({dataCr: roomsCreator.rows, dataAdd: roomsAdded.rows});
-
-      }catch(error){
+          const roomsIDAdded = await db.query(`SELECT room_id FROM UsersInRoom WHERE user_id = $1`, [userId]);
+          if (roomsIDAdded.rows.length > 0) {
+            const roomIds = roomsIDAdded.rows.map(row => row.room_id);
+            const roomsAdded = await db.query(`SELECT * FROM Rooms WHERE room_id IN (${roomIds.join(',')})`);
+            res.status(201).json({ dataCr: roomsCreator.rows, dataAdd: roomsAdded.rows });
+        } else {
+            res.status(201).json({ dataCr: [], dataAdd: [] });
+        }
+  
+         
+  
+      } catch(error){
           res.status(500).json({ error: 'Internal Server Error' });
-      }
-    }
+      } 
+  }
+  
     
 }
 
