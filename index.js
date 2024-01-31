@@ -2,6 +2,21 @@ const express = require("express");
 const app = express();
 const cors = require('cors');
 require('dotenv').config();
+const YAML = require( 'yamljs');                                                  
+const swaggerUi = require( 'swagger-ui-express');                               
+const ExpressSwaggerGenerator = require( 'express-swagger-generator');          
+const swiggerOptions = require( './config/swigger.options.js');
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+const swaggerDocument = YAML.load(path.join(__dirname, 'docs', 'docs.yaml'));
+
+if (config.get("doc.swagger2") === true) {
+    const expressSwaggerGenerator = ExpressSwaggerGenerator(app);
+    expressSwaggerGenerator(swiggerOptions(__dirname));
+}
+
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(cors());
 
@@ -12,6 +27,8 @@ const roomRouter = require('./routes/room.routes');
 app.get('/', (req, res) => {
     res.send("Server is running");
 });
+
+
 
 app.use(express.json()); 
 
