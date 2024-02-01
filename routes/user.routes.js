@@ -132,7 +132,7 @@ router.get('/getOneUser/:id', userController.getOneUser);
 /**
  * @swagger
  * /user/updateUsername/{id}:
- *   post:
+ *   put:
  *     summary: Update username for a specific user
  *     tags: [User]
  *     description: Update the username for a user with the given ID
@@ -174,12 +174,12 @@ router.get('/getOneUser/:id', userController.getOneUser);
  *         description: Internal Server Error
  */
 
-router.post('/updateUsername/:id', userController.updateUsername);
+router.put('/updateUsername/:id', userController.updateUsername);
 
 /**
  * @swagger
  * /user/updatePassword/{id}:
- *   post:
+ *   put:
  *     summary: Update password for a specific user
  *     tags: [User]
  *     description: Update the password for a user with the given ID
@@ -221,7 +221,7 @@ router.post('/updateUsername/:id', userController.updateUsername);
  *         description: Internal Server Error
  */
 
-router.post('/updatePassword/:id', userController.updatePassword);
+router.put('/updatePassword/:id', userController.updatePassword);
 
 
 

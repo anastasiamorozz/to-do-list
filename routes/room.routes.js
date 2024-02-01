@@ -114,4 +114,108 @@ router.post('/addUser', RoomContoller.addUserToRoom);
 
 router.get('/getUsersRooms/:id', RoomContoller.getUsersRoom);
 
+/**
+ * @swagger
+ * /rooms/delete/{id}:
+ *   delete:
+ *     summary: Delete a room
+ *     tags: [Rooms]
+ *     description: Delete a room by ID for a specific user
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the user
+ *         schema:
+ *           type: integer
+ *       - in: body
+ *         name: room
+ *         required: true
+ *         description: Room information
+ *         schema:
+ *           type: object
+ *           properties:
+ *             roomId:
+ *               type: integer
+ *     responses:
+ *       200:
+ *         description: Room deleted successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *       404:
+ *         description: No rooms found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ */
+
+router.delete('/delete/:id', RoomContoller.deleteRoom);
+
+/**
+ * @swagger
+ * /rooms/tasks:
+ *   get:
+ *     summary: Get tasks in a room
+ *     tags: [Rooms]
+ *     description: Get all tasks in a specific room
+ *     parameters:
+ *       - in: path
+ *         name: roomId
+ *         required: true
+ *         description: ID of the room
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: List of tasks in the room
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   taskId:
+ *                     type: integer
+ *                   title:
+ *                     type: string
+ *                   day:
+ *                     type: string
+ *                   room_id:
+ *                     type: integer
+ *                   creator_id:
+ *                     type: integer
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ */
+
+router.get('/tasks', RoomContoller.getTasksInRoom);
+
 module.exports = router;

@@ -1,6 +1,7 @@
 const Router = require('express');
 const router = new Router();
 const TaskController = require('../controllers/task.controller');
+const RoomContoller = require('../controllers/room.controller');
 
 /**
  * @swagger
@@ -52,6 +53,73 @@ router.post('/createTask/:id', TaskController.createTask);
 
 /**
  * @swagger
+ * /tasks/createTaskInRoom/{id}:
+ *   post:
+ *     summary: Create a task in a room
+ *     tags: [Tasks]
+ *     description: Create a new task in a specific room for a user
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the user
+ *         schema:
+ *           type: integer
+ *       - in: body
+ *         name: task
+ *         required: true
+ *         description: Task information
+ *         schema:
+ *           type: object
+ *           properties:
+ *             roomId:
+ *               type: integer
+ *             title:
+ *               type: string
+ *             day:
+ *               type: string
+ *     responses:
+ *       201:
+ *         description: Task created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 taskId:
+ *                   type: integer
+ *                 title:
+ *                   type: string
+ *                 day:
+ *                   type: string
+ *                 room_id:
+ *                   type: integer
+ *                 creator_id:
+ *                   type: integer
+ *       404:
+ *         description: User not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ */
+
+router.post('/createTaskInRoom/:id', RoomContoller.createTaskInRoom);
+
+/**
+ * @swagger
  * /tasks/allTasks/{id}:
  *   get:
  *     summary: Get all tasks for a user on a specific day
@@ -90,7 +158,7 @@ router.get('/allTasks/:id', TaskController.getUserTasks);
 /**
  * @swagger
  * /tasks/updateStatus/{id}:
- *   post:
+ *   put:
  *     summary: Update status for a specific task
  *     description: Update the status for a task with the given ID
  *     tags: [Tasks]
@@ -126,7 +194,7 @@ router.get('/allTasks/:id', TaskController.getUserTasks);
  *         description: Internal Server Error
  */
 
-router.post('/updateStatus/:id', TaskController.changeSatus);
+router.put('/updateStatus/:id', TaskController.changeSatus);
 
 /**
  * @swagger

@@ -25,3 +25,6 @@ CREATE TABLE UsersInRoom (
   room_id INTEGER REFERENCES Rooms(room_id) ON DELETE CASCADE,
   PRIMARY KEY (user_id, room_id)
 );
+
+ALTER TABLE Task
+ADD COLUMN room_id integer references Rooms(room_id) on delete cascade;
