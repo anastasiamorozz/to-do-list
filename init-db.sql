@@ -10,7 +10,8 @@ create TABLE Task(
     title varchar (64),
     day date not null,
     status varchar(32) check (status in ('To Do', 'In Progress', 'Completed')),
-    user_id integer references Users(id) on delete cascade
+    room_id integer references Rooms(room_id) on delete cascade,
+    creator_id integer references Users(id) on delete cascade
 );
 
 CREATE TABLE Rooms (
@@ -25,6 +26,3 @@ CREATE TABLE UsersInRoom (
   room_id INTEGER REFERENCES Rooms(room_id) ON DELETE CASCADE,
   PRIMARY KEY (user_id, room_id)
 );
-
-ALTER TABLE Task
-ADD COLUMN room_id integer references Rooms(room_id) on delete cascade;

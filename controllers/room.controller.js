@@ -113,7 +113,7 @@ class RoomContoller{
       }
   }
 
-  async createTaskInRoom(req, res) {
+  async createTaskInRoom(req, res) { //internal server error
     const { roomId, title, day } = req.body;
     const userId = req.params.id;
 
