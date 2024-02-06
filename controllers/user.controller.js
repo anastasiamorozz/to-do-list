@@ -21,7 +21,7 @@ class UserController {
             const userId = newUser.rows[0].id;
             const token = createSecretToken(userId);
 
-            res.status(201).json({token});
+            res.status(201).json({token, userId});
           } catch (error) {
             console.error('Error during registration:', error);
             res.status(500).json({ error: 'Internal Server Error' });

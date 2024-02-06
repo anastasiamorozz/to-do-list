@@ -55,65 +55,37 @@ router.post('/createTask/:id', TaskController.createTask);
  * @swagger
  * /tasks/createTaskInRoom/{id}:
  *   post:
- *     summary: Create a task in a room
+ *     summary: Create a new task in a room
  *     tags: [Tasks]
- *     description: Create a new task in a specific room for a user
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID of the user
+ *         description: ID of the task to update the status
  *         schema:
  *           type: integer
- *       - in: body
- *         name: task
- *         required: true
- *         description: Task information
- *         schema:
- *           type: object
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *               type: object
  *           properties:
  *             roomId:
- *               type: integer
+ *               type: string
  *             title:
  *               type: string
  *             day:
  *               type: string
  *     responses:
- *       201:
- *         description: Task created successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 taskId:
- *                   type: integer
- *                 title:
- *                   type: string
- *                 day:
- *                   type: string
- *                 room_id:
- *                   type: integer
- *                 creator_id:
- *                   type: integer
- *       404:
+ *       '201':
+ *         description: Created
+ *       '400':
+ *         description: Bad request
+ *       '404':
  *         description: User not found
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
- *       500:
+ *       '500':
  *         description: Internal Server Error
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
  */
 
 router.post('/createTaskInRoom/:id', RoomContoller.createTaskInRoom);

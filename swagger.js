@@ -6,7 +6,7 @@ const options = {
         info: {
             title: 'ToDo List API with Swagger',
             version: '1.0.0',
-            description: 'API documentation for your Express.js application',
+            description: 'API documentation for Express.js application',
         },
     },
     apis: ['./routes/*.js'],

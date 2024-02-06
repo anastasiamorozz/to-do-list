@@ -118,25 +118,22 @@ router.get('/getUsersRooms/:id', RoomContoller.getUsersRoom);
  * @swagger
  * /rooms/delete/{id}:
  *   delete:
- *     summary: Delete a room
+ *     summary: Delete rooms
+ *     description: Delete rooms
  *     tags: [Rooms]
- *     description: Delete a room by ID for a specific user
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID of the user
+ *         description: ID of the user to delete completed tasks for
  *         schema:
  *           type: integer
- *       - in: body
- *         name: room
- *         required: true
- *         description: Room information
- *         schema:
- *           type: object
- *           properties:
- *             roomId:
- *               type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
  *     responses:
  *       200:
  *         description: Room deleted successfully
@@ -150,30 +147,16 @@ router.get('/getUsersRooms/:id', RoomContoller.getUsersRoom);
  *                 message:
  *                   type: string
  *       404:
- *         description: No rooms found
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
+ *         description: No completed tasks found for the specified user and day
  *       500:
  *         description: Internal Server Error
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
  */
 
 router.delete('/delete/:id', RoomContoller.deleteRoom);
 
 /**
  * @swagger
- * /rooms/tasks:
+ * /rooms/tasks/{roomId}:
  *   get:
  *     summary: Get tasks in a room
  *     tags: [Rooms]
@@ -195,7 +178,7 @@ router.delete('/delete/:id', RoomContoller.deleteRoom);
  *               items:
  *                 type: object
  *                 properties:
- *                   taskId:
+ *                   task_id:
  *                     type: integer
  *                   title:
  *                     type: string
@@ -216,6 +199,6 @@ router.delete('/delete/:id', RoomContoller.deleteRoom);
  *                   type: string
  */
 
-router.get('/tasks', RoomContoller.getTasksInRoom);
+router.get('/tasks/:id', RoomContoller.getTasksInRoom);
 
 module.exports = router;

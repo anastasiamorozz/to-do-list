@@ -63,57 +63,57 @@ class RoomContoller{
       }
     }
 
-    async getUsersRoom(req, res){
-      const userId = req.params.id;
-      // try {
-      //     const roomsCreator = await db.query(`SELECT * FROM Rooms WHERE creator_id = $1`, [userId]);
-      //     const roomsIDAdded = await db.query(`SELECT room_id FROM UsersInRoom WHERE user_id = $1`, [userId]);
-      //     if (roomsIDAdded.rows.length > 0) {
-      //       const roomIds = roomsIDAdded.rows.map(row => row.room_id);
-      //       const roomsAdded = await db.query(`SELECT * FROM Rooms WHERE room_id IN (${roomIds.join(',')})`);
-      //       res.status(201).json({ dataCr: roomsCreator.rows, dataAdd: roomsAdded.rows });
-      //   } else {
-      //       res.status(201).json({ dataCr: [], dataAdd: [] });
-      //   }
-  
-      // } catch(error){
-      //     res.status(500).json({ error: 'Internal Server Error' });
-      // } 
-      const roomsCreator = await db.query(`SELECT * FROM Rooms WHERE creator_id = $1`, [userId]);
-      const roomsIDAdded = await db.query(`SELECT room_id FROM UsersInRoom WHERE user_id = $1`, [userId]);
-      if (roomsIDAdded.rows.length > 0) {
-        const roomIds = roomsIDAdded.rows.map(row => row.room_id);
-        const roomsAdded = await db.query(`SELECT * FROM Rooms WHERE room_id IN (${roomIds.join(',')})`);
-        res.status(201).json({ dataCr: roomsCreator.rows, dataAdd: roomsAdded.rows });
-    } else {
-        res.status(201).json({ dataCr: [], dataAdd: [] });
+    async getUsersRoom(req, res) { 
+      const userId = req.params.id; 
+   
+      try { 
+        const roomsCreator = await db.query( 
+          `SELECT * FROM Rooms WHERE creator_id = $1`, 
+          [userId] 
+        ); 
+   
+        const roomsIDAdded = await db.query( 
+          `SELECT room_id FROM UsersInRoom WHERE user_id = $1`, 
+          [userId] 
+        ); 
+   
+        if (roomsIDAdded.rows.length > 0) { 
+          const roomIds = roomsIDAdded.rows.map((row) => row.room_id); 
+          const roomsAdded = await db.query( 
+            `SELECT * FROM Rooms WHERE room_id IN (${roomIds.join(",")})` 
+          ); 
+          res 
+            .status(201) 
+            .json({ dataCr: roomsCreator.rows, dataAdd: roomsAdded.rows }); 
+        } else { 
+          res.status(201).json({ dataCr: roomsCreator.rows, dataAdd: [] }); 
+        } 
+      } catch (error) { 
+        console.error("Error fetching rooms:", error); 
+        res.status(500).json({ error: "Internal Server Error" }); 
+      } 
     }
-  }
+  
 
-  async deleteRoom(req, res){
-    // try{
-    //   const userId = req.params.id;
-    //   const {roomId} = req.body;
-    //   const result = await db.query(`DELETE * FROM Rooms WHERE room_id = $1 AND creator_id=$2`, [roomId, userId]);
-    //   if (result.rowCount > 0) {
-    //     res.status(200).json({ success: true, message: 'Room deleted successfully' });
-    //   } else {
-    //     res.status(404).json({ error: 'No rooms found' });
-    //   }
-    // }catch(error){
-    //   res.status(500).json({ error: 'Internal Server Error' });
-    // }
-    const userId = req.params.id;
-      const {roomId} = req.body;
-      const result = await db.query(`DELETE FROM Rooms WHERE room_id = $1 AND creator_id=$2`, [roomId, userId]);
+  async deleteRoom(req, res){ 
+
+    const  roomId = req.params.id;
+
+    try {
+      const result = await db.query('DELETE FROM Rooms WHERE room_id = $1', [roomId]);
+
       if (result.rowCount > 0) {
         res.status(200).json({ success: true, message: 'Room deleted successfully' });
-      } else {
+      } else { 
         res.status(404).json({ error: 'No rooms found' });
       }
+  } catch (error) {
+      console.error('Error deleting room:', error);
+      return { success: false, message: 'Internal Server Error' };
+  }
   }
 
-  async createTaskInRoom(req, res) { //internal server error
+  async createTaskInRoom(req, res) { 
     const { roomId, title, day } = req.body;
     const userId = req.params.id;
 
@@ -133,8 +133,8 @@ class RoomContoller{
     }
   }
   
-  async getTasksInRoom(req, res){
-    const {roomId} = req.body;
+  async getTasksInRoom(req, res){ 
+    const roomId = req.params.id;
     try{
       const tasks = await db.query(`SELECT * FROM  Task WHERE room_id=$1 ORDER BY "day" ASC`, [roomId]);
       res.status(200).send(tasks.rows);
