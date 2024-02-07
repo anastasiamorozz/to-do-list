@@ -143,6 +143,17 @@ class RoomContoller{
       res.status(500).json({ error: 'Internal Server Error' });
     }
   }
+
+  async getRoomById(req,res){
+    const roomId = req.params.id;
+    try{
+      const room = await db.query(`SELECT * FROM Rooms WHERE room_id=$1`, [roomId]);
+      res.status(200).send(room.rows[0]);
+    }catch(error){
+      console.log("ERROR ", error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  }
     
 }
 

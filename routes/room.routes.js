@@ -201,4 +201,57 @@ router.delete('/delete/:id', RoomContoller.deleteRoom);
 
 router.get('/tasks/:id', RoomContoller.getTasksInRoom);
 
+/**
+ * @swagger
+ * /rooms/getRoom/{roomId}:
+ *   get:
+ *     summary: Get room by ID
+ *     tags: [Rooms]
+ *     description: Get a room by its ID
+ *     parameters:
+ *       - in: path
+ *         name: roomId
+ *         required: true
+ *         description: ID of the room
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Room details retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 room_id:
+ *                   type: integer
+ *                 name:
+ *                   type: string
+ *                 creator_id:
+ *                   type: integer
+ *                 created_at:
+ *                   type: string
+ *                   format: date-time
+ *       404:
+ *         description: Room not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ */
+
+router.get('/getRoom/:id', RoomContoller.getRoomById);
+
 module.exports = router;
