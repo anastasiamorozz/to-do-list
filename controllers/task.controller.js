@@ -2,7 +2,7 @@ const db = require('../db');
 
 class TaskController{
     async createTask(req, res) {
-        const { title, day } = req.body;
+        const { title, date } = req.body;
         const userId = req.params.id;
     
         try {
@@ -12,7 +12,7 @@ class TaskController{
                 return res.status(404).json({ error: 'User not found' });
             }
     
-            const newTask = await db.query('INSERT INTO Task (title, day, creator_id) VALUES ($1, $2, $3) RETURNING *', [title, day, userId]);
+            const newTask = await db.query('INSERT INTO Task (title, day, creator_id) VALUES ($1, $2, $3) RETURNING *', [title, date, userId]);
     
             res.status(201).json(newTask.rows[0]);
         } catch (error) {
@@ -24,6 +24,8 @@ class TaskController{
     async getUserTasks(req, res){
         const userId = req.params.id;
         const selectedDate = req.query.selectedDate;
+        if(selectedDate == null || selectedDate == undefined){
+            return res.status(501).json({error:"Missing parameter"})}
         try {
             const tasks = await db.query(`SELECT * FROM Task WHERE creator_id = $1 AND day= $2`, [userId, selectedDate]);
 

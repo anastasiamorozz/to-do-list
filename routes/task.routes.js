@@ -33,7 +33,7 @@ const RoomContoller = require('../controllers/room.controller');
  *             properties:
  *               title:
  *                 type: string
- *               day:
+ *               date:
  *                 type: string
  *     responses:
  *       201:
