@@ -1,7 +1,6 @@
-
 const { createSecretToken } = require('../util/SecretToken.js');
 const bcrypt = require('bcrypt');
-const db = require('../db')
+const db = require('../db');
 
 class UserController {
     async createUser(req, res){
