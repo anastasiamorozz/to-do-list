@@ -1,4 +1,5 @@
 const db = require("../db"); 
+const {Task}=require('../sequelize/models')
  
 class TaskController { 
   async createTask(req, res) { 
@@ -89,6 +90,25 @@ class TaskController {
       res.status(500).json({ error: "Internal Server Error" }); 
     } 
   } 
+
+  async sortByKey(req, res){
+    try {
+        const { sortField, sortOrder } = req.query;
+        let order;
+        if (sortOrder === 'asc') {
+          order = [[sortField, 'ASC']];
+        } else {
+          order = [[sortField, 'DESC']];
+        }
+        const sortedData = await Task.findAll({
+          order: order
+        });
+        res.status(200).json(sortedData);
+      } catch (err) {
+        console.log('Error in sorting', err);
+        res.status(500).json({ error: "Internal Server Error" });
+      }
+  }
 } 
  
 module.exports = new TaskController();

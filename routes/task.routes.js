@@ -209,6 +209,8 @@ router.put('/updateStatus/:id', TaskController.changeSatus);
  *         description: Internal Server Error
  */
 
-router.delete('/deleteCompleted/:id', TaskController.deleteCompleted)
+router.delete('/deleteCompleted/:id', TaskController.deleteCompleted);
+
+router.get('/sortByKey', TaskController.sortByKey);
 
 module.exports = router;
