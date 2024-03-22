@@ -1,8 +1,8 @@
 'use strict';
-/** @type {import('sequelize-cli').Migration} */
+
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Users', {
+    await queryInterface.createTable('users', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -10,10 +10,12 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       username: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique: true // Додаємо унікальний індекс для поля username
       },
       email: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique: true // Додаємо унікальний індекс для поля email
       },
       password: {
         type: Sequelize.STRING
@@ -27,8 +29,12 @@ module.exports = {
         type: Sequelize.DATE
       }
     });
+
+    // Додаємо індекси до полів username та email
+    await queryInterface.addIndex('users', ['username']);
+    await queryInterface.addIndex('users', ['email']);
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Users');
+    await queryInterface.dropTable('users');
   }
 };

@@ -252,6 +252,9 @@ router.get('/tasks/:id', RoomContoller.getTasksInRoom);
  *                   type: string
  */
 
-router.get('/getRoom/:id', RoomContoller.getRoomById);
+// router.get('/getRoom/:id', RoomContoller.getRoomById);
+
+// router.get("/getUsersInRoom/:id", RoomContoller.getUsersInRoom); 
+// router.delete("/deleteUser/:roomId/:userId", RoomContoller.deleteUserInRoom); 
 
 module.exports = router;

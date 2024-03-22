@@ -1,30 +1,58 @@
 const { createSecretToken } = require('../util/SecretToken.js');
 const bcrypt = require('bcrypt');
 const db = require('../db');
+const {User, Sequelize} = require('../sequelize/models');
+const Op = Sequelize.Op;
 
 class UserController {
     async createUser(req, res){
-        try {
-            const { username, email, password } = req.body;
+      try {
+        const { username, email, password } = req.body;
+      
         
-            const existingUser = await db.query('SELECT * FROM users WHERE username = $1 OR email = $2', [username, email]);
-        
-            if (existingUser.rows.length > 0) {
-              return res.status(409).json({ error: 'User with this username or email already exists' });
-            }
-        
-            const hashedPassword = await bcrypt.hash(password, 10);
-        
-            const newUser = await db.query('INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING *', [username, email, hashedPassword]);
-        
-            const userId = newUser.rows[0].id;
-            const token = createSecretToken(userId);
-
-            res.status(201).json({token, userId});
-          } catch (error) {
-            console.error('Error during registration:', error);
-            res.status(500).json({ error: 'Internal Server Error' });
+        const existingUser = await User.findOne({
+          attributes: ['id', 'username', 'email', 'password'],
+          where: { 
+            [Op.or]: [{ username }, { email }]
           }
+        });
+        
+      
+        if (existingUser) {
+          return res.status(409).json({ error: 'User with this username or email already exists' });
+        }
+      
+        // Хешування паролю
+        const hashedPassword = await bcrypt.hash(password, 10);
+      
+        // Створення нового користувача
+        const newUser = await User.create({ username, email, password: hashedPassword });
+      
+        const userId = newUser.id;
+        const token = createSecretToken(userId);
+      
+        res.status(201).json({ token, userId });
+      } catch (error) {
+        console.error('Error during registration:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+      }
+
+      // try{
+      //   const model = req.body;
+      //   const user = await User.create({
+      //     ...model,
+      //     isActive: true 
+      //   });
+        
+      //   const userId = user.id;
+        
+      //   const secretToken = createSecretToken(userId);
+      //   await user.update({ secretToken });
+      //   res.status(201).json({secretToken, userId});
+      // }catch(err){
+      //   console.log("ERROR IN USER CONTROLLER CREATE USER", err);
+      //   res.status(500).json({ error: 'Internal Server Error' });
+      // }
     }
 
     async loginUser(req, res) {
@@ -76,12 +104,20 @@ class UserController {
     }
 
     async getOneUser(req, res){
-        const userId = parseInt(req.params.id);
-        if(!userId){
-            return res.status(400).send({error: 'Invalid ID'}); 
-        }
-        const user = await db.query("SELECT * FROM Users WHERE id=$1", [userId]);
-        return res.status(200).send(user.rows);
+        // const userId = parseInt(req.params.id);
+        // if(!userId){
+        //     return res.status(400).send({error: 'Invalid ID'}); 
+        // }
+        // const user = await db.query("SELECT * FROM Users WHERE id=$1", [userId]);
+        // return res.status(200).send(user.rows);
+
+        const user = await User.findOne({
+          where:{
+            id: req.params.id
+          }
+        })
+
+        return res.status(200).send(user.toJSON());
     }
 
     async updateUsername(req, res){

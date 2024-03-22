@@ -1,6 +1,6 @@
 module.exports={
    development : {
-    url: 'postgres://postgres:123456@localhost:5432/todolistdb',
+    url: 'postgres://postgres:123456@localhost:5432/todolist',
     dialect :  'postgres',
     // dialectOptions:{
     //   ssl:{
