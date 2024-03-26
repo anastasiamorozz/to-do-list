@@ -28,5 +28,8 @@ module.exports = (sequelize, DataTypes) => {
     underscored: true,
     timestamps: false
   });
+  User.prototype.createRoom = async function (roomData) {
+    return await this.createRoom(roomData);
+  };
   return User;
 };

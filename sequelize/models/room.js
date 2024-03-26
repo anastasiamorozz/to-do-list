@@ -20,11 +20,20 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true
     },
     name: DataTypes.STRING,
-    creator_id: DataTypes.INTEGER
+    creator_id: DataTypes.INTEGER,
+    created_at: {
+      allowNull: false,
+      type: DataTypes.DATE
+    } 
   }, {
     sequelize,
     modelName: 'Room',
     underscored: true,
+    timestamps:false
   });
+  User.prototype.createRoomAndTasks = async function (roomData) {
+    const room = await this.createRoom(roomData);
+    return room;
+  };
   return Room;
 };
