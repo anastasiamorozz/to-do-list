@@ -1,5 +1,6 @@
 const db = require("../db"); 
-const {Task}=require('../sequelize/models')
+const {Task, Sequelize}=require('../sequelize/models')
+const Op = Sequelize.Op;
  
 class TaskController { 
   async createTask(req, res) { 
@@ -109,6 +110,48 @@ class TaskController {
         res.status(500).json({ error: "Internal Server Error" });
       }
   }
+
+  async searchByDate(req, res) {
+    try {
+      const { fromDate, toDate } = req.query;
+      
+      const fromDateTime = new Date(fromDate);
+      const toDateTime = new Date(toDate);
+  
+      const tasks = await Task.findAll({
+        where: {
+          day: {
+            [Op.between]: [fromDateTime, toDateTime]
+          }
+        }
+      });
+  
+      res.status(200).json(tasks);
+    } catch (err) {
+      console.log('Error in searching by date:', err);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  }
+
+  async filterByStatus(req, res) {
+    try {
+      const { status } = req.query;
+  
+      const filteredTasks = await Task.findAll({
+        where: {
+          status: {
+            [Op.eq]: status
+          }
+        }
+      });
+  
+      res.status(200).json(filteredTasks);
+    } catch (err) {
+      console.error('Error filtering tasks:', err);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  }
+
 } 
  
 module.exports = new TaskController();

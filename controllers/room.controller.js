@@ -147,16 +147,15 @@ class RoomContoller {
       } 
  
       const newTask = await db.query( 
-        "INSERT INTO Task (title, day, room_id, creator_id) VALUES ($1, $2, $3, $4) RETURNING *", 
-        [title, day, roomId, userId] 
+        "INSERT INTO Task (title, day, room_id, creator_id, status) VALUES ($1, $2, $3, $4, $5) RETURNING *", 
+        [title, day, roomId, userId, "To Do"] 
       ); 
  
       res.status(201).json(newTask.rows[0]); 
     } catch (error) { 
       console.error("Error during task creation:", error); 
       res.status(500).json({ error: "Internal Server Error" }); 
-    } 
-  } 
+    } } 
  
   async getTasksInRoom(req, res) { 
     const roomId = req.params.id; 

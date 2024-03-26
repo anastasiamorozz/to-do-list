@@ -31,9 +31,5 @@ module.exports = (sequelize, DataTypes) => {
     underscored: true,
     timestamps:false
   });
-  User.prototype.createRoomAndTasks = async function (roomData) {
-    const room = await this.createRoom(roomData);
-    return room;
-  };
   return Room;
 };

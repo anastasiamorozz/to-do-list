@@ -213,4 +213,8 @@ router.delete('/deleteCompleted/:id', TaskController.deleteCompleted);
 
 router.get('/sortByKey', TaskController.sortByKey);
 
+router.get('/searchByDate', TaskController.searchByDate);
+
+router.get('/filterByStatus', TaskController.filterByStatus);
+
 module.exports = router;
