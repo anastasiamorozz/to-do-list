@@ -38,6 +38,10 @@ app.use('/user', userRouter);
 app.use("/tasks", taskRouter);
 app.use('/rooms', roomRouter);
 
+app.use('/', ()=>{
+    return  'я не лох :D';
+})
+
 (async () => {
     await connectDb();
     const port = process.env.PORT || 8080;

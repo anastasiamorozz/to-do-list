@@ -217,4 +217,6 @@ router.get('/searchByDate', TaskController.searchByDate);
 
 router.get('/filterByStatus', TaskController.filterByStatus);
 
+router.get('/search', TaskController.vectorSearchByTitle);
+
 module.exports = router;
