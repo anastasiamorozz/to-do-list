@@ -15,9 +15,9 @@ const userRouter = require('./routes/user.routes');
 const taskRouter = require('./routes/task.routes');
 const roomRouter = require('./routes/room.routes');
 
-// app.get('/', (req, res) => {
-//     res.send("Server is running");
-// });
+app.get('/', (req, res) => {
+    res.send("я не лох :D");
+});
 
 
 const connectDb = async () => {
