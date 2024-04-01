@@ -1,5 +1,5 @@
 const db = require("../db"); 
-const {tasks, Sequelize}=require('../sequelize/models')
+const {Task, Sequelize}=require('../sequelize/models')
 const Op = Sequelize.Op;
 const { calculateSimilarity, vectorizeTitle } = require('../util/vectorUtils');
  
@@ -157,21 +157,28 @@ class TaskController {
     try {
       const { inputTitle } = req.query;
   
-      const inputTitleVector = vectorizeTitle(inputTitle);
+      if(inputTitle != null){
+        const inputTitleVector = vectorizeTitle(inputTitle);
+
+        const allTitles = await Task.findAll({ attributes: ['title'] });
   
-      const allTitles = await tasks.findAll({ attributes: ['title'] });
+        const titleVectors = allTitles.map(Task => vectorizeTitle(Task.title));
+    
+        const similarities = titleVectors.map(titleVector =>
+          calculateSimilarity(inputTitleVector, titleVector)
+        );
+    
+        const sortedTitles = allTitles.sort((a, b) =>
+          similarities[allTitles.indexOf(b)] - similarities[allTitles.indexOf(a)]
+        );
+    
+        res.status(200).json(sortedTitles);
+      }
+      else{
+        res.status(400).json({error: "Input title is required"});
+      }
   
-      const titleVectors = allTitles.map(tasks => vectorizeTitle(tasks.title));
-  
-      const similarities = titleVectors.map(titleVector =>
-        calculateSimilarity(inputTitleVector, titleVector)
-      );
-  
-      const sortedTitles = allTitles.sort((a, b) =>
-        similarities[allTitles.indexOf(b)] - similarities[allTitles.indexOf(a)]
-      );
-  
-      res.status(200).json(sortedTitles);
+      
     } catch (err) {
       console.error('Error in vector search by title:', err);
       res.status(500).json({ error: 'Internal Server Error' });
